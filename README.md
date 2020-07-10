@@ -7,3 +7,5 @@ Configs
 https://forums.kleientertainment.com/forums/topic/64441-dedicated-server-quick-setup-guide-linux/
 
 For Debian, see https://unix.stackexchange.com/a/390076 for `steamcmd` installation
+
+Create server via https://accounts.klei.com/account/game/servers?game=DontStarveTogether

@@ -22,8 +22,6 @@ check_for_file "$dontstarve_dir/$cluster_name/cluster_token.txt"
 check_for_file "$dontstarve_dir/$cluster_name/Master/server.ini"
 check_for_file "$dontstarve_dir/$cluster_name/Caves/server.ini"
 
-steamcmd +force_install_dir "$install_dir" +login anonymous +app_update 343050 validate +quit
-
 check_for_file "$install_dir/bin"
 
 cp "$cluster_name/modoverrides.lua" "$dontstarve_dir/$cluster_name/Master/modoverrides.lua"
