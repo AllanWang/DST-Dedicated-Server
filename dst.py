@@ -10,6 +10,12 @@ BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 def project_dir(relative: str) -> str:
     return join(BASE_DIR, relative)
 
+def header_print(text: str):
+    print("-----------------------------------------")
+    print(text, end='\n\n\n')
+
+header_print('Verifying configs')
+
 # Read args
 parser = argparse.ArgumentParser(description='Launch DST Server')
 parser.add_argument('server', metavar='F', type=str,
@@ -25,13 +31,10 @@ server_dir = project_dir(server)
 if not os.path.isdir(server_dir):
     raise ValueError(f"{server_dir} does not point to a valid folder")
 
-print(server_dir)
-
 # Read config.ini
 
 config = configparser.ConfigParser()
 config.read('config.ini')
-
 
 def config_dir(key: str) -> str:
     value = config.get('Paths', key)
@@ -61,6 +64,8 @@ check_cluster_file('cluster_token.txt')
 check_cluster_file('Master/server.ini')
 check_cluster_file('Caves/server.ini')
 
+header_print(f"Setting up {server}")
+
 def copy_config_file(source_relative: str, dest_file: str):
     source_file = join(server_dir, source_relative)
     if os.path.isfile(source_file):
@@ -82,8 +87,11 @@ for f in ['dedicated_server_mods_setup.lua']:
 # Run script    
 
 if not args.no_update:
-    subprocess.run(["echo", f"update at {dst_dir}"])
+    header_print(f"Updating {dst_dir}")
+    subprocess.run(['steamcmd', '+force_install_dir', install_dir, '+login', 'anonymous', '+app_update', '343050', 'validate', '+quit'])
     
+header_print(f"Starting {server}")
+
 try:
     os.chdir(install_bin)
 except OSError:
@@ -92,6 +100,7 @@ except OSError:
 base_run = ['./dontstarve_dedicated_server_nullrenderer', '-console', f"-cluster {server}", f"-monitor_parent_process {os.getpid()}"]
 
 def async_run(shard: str):
+    print(f"Starting shard {shard}")
     run_commands = base_run + [f"-shared {shard}"]
     ps = subprocess.Popen(run_commands, stdout=subprocess.PIPE)
     subprocess.check_output(['sed', f"s/^/{shard}:  /"], stdin=ps.stdout)
