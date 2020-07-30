@@ -1,0 +1,2 @@
+-- Add server mods here
+-- `Eg ServerModSetup("123")`
