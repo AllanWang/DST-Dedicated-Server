@@ -99,22 +99,22 @@ for f in ['dedicated_server_mods_setup.lua']:
 
 header_print(f"Starting {server}")
 
-try:
-    os.chdir(install_bin)
-except OSError:
-    raise ValueError(f"Could not change to bin directory {install_bin}")
+# try:
+#     os.chdir(install_bin)
+# except OSError:
+#     raise ValueError(f"Could not change to bin directory {install_bin}")
 
 base_run = ['./dontstarve_dedicated_server_nullrenderer', '-console',
-            f"-cluster {server}", f"-monitor_parent_process {os.getpid()}"]
+            f"-cluster {server}", f"-monitor_parent_process $$"]
 
 
 def async_run(shard: str):
     print(f"Starting shard {shard}")
     run_commands = base_run + [f"-shared {shard}"]
     ps = subprocess.Popen(
-        run_commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        run_commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=install_bin, shell=True)
     for line in ps.stdout:
-        print(f"{shard}:\t{line.decode()}", end='')
+        print(f"{shard}:\t{line.decode(errors='ignore')}", end='')
     ps.stdout.close()
     return_code = ps.wait()
     if return_code:
