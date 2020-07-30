@@ -105,20 +105,21 @@ header_print(f"Starting {server}")
 #     raise ValueError(f"Could not change to bin directory {install_bin}")
 
 base_run = ['./dontstarve_dedicated_server_nullrenderer', '-console',
-            f"-cluster {server}", f"-monitor_parent_process $$"]
+            f"-cluster {server}", f"-monitor_parent_process {os.getpid()}"]
 
 
 def async_run(shard: str):
     print(f"Starting shard {shard}")
     run_commands = base_run + [f"-shared {shard}"]
-    ps = subprocess.Popen(
-        run_commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=install_bin, shell=True)
-    for line in ps.stdout:
-        print(f"{shard}:\t{line.decode(errors='ignore')}", end='')
-    ps.stdout.close()
-    return_code = ps.wait()
-    if return_code:
-        raise subprocess.CalledProcessError(return_code, run_commands)
+    print(f"{run_commands}")
+    # ps = subprocess.Popen(
+    #     run_commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=install_bin)
+    # for line in ps.stdout:
+    #     print(f"{shard}:\t{line.decode()}", end='')
+    # ps.stdout.close()
+    # return_code = ps.wait()
+    # if return_code:
+    #     raise subprocess.CalledProcessError(return_code, run_commands)
 
 
 async_run('Caves')
