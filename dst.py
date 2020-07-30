@@ -54,7 +54,7 @@ cluster_dir = join(dst_dir, server)
 def check_cluster_file(relative: str):
     dir = join(cluster_dir, relative)
     if not os.path.isdir(dir):
-        raise ValueError(f"Invalid cluster folder {cluster_dir}; please follow server setup (TODO link)")
+        raise ValueError(f"Invalid cluster folder {cluster_dir} {dir}; please follow server setup (TODO link)")
 
 check_cluster_file('cluster.ini')
 check_cluster_file('cluster_token.txt')
