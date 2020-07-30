@@ -100,9 +100,12 @@ for f in ['dedicated_server_mods_setup.lua']:
 
 header_print(f"Starting {server}")
 
+
 async def start_shard(shard: str):
-    run_commands = [join(BASE_DIR, 'scripts', 'start_shard.sh'), server, shard, str(os.getpid())]
-    ps = subprocess.Popen(run_commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=install_bin)
+    run_commands = [join(BASE_DIR, 'scripts', 'start_shard.sh'),
+                    server, shard, str(os.getpid())]
+    ps = subprocess.Popen(run_commands, stdout=subprocess.PIPE,
+                          stderr=subprocess.PIPE, cwd=install_bin)
     for line in ps.stdout:
         print(line.decode(), end='')
         await asyncio.sleep(1)
@@ -111,4 +114,11 @@ async def start_shard(shard: str):
     if return_code:
         raise subprocess.CalledProcessError(return_code, ps.args)
 
-asyncio.run(asyncio.gather(start_shard('Caves'), start_shard('Master')))
+
+async def start_shards():
+    await asyncio.gather(
+        start_shard('Caves'),
+        start_shard('Master')
+    )
+
+asyncio.run(start_shards())
