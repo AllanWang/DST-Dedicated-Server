@@ -61,12 +61,18 @@ check_cluster_file('cluster_token.txt')
 check_cluster_file('Master/server.ini')
 check_cluster_file('Caves/server.ini')
 
+# Run script    
+
+if not args.no_update:
+    header_print(f"Updating {dst_dir}")
+    subprocess.run(['steamcmd', '+force_install_dir', install_dir, '+login', 'anonymous', '+app_update', '343050', 'validate', '+quit'])
+
 header_print(f"Setting up {server}")
 
 def copy_config_file(source_relative: str, dest_file: str):
     source_file = join(server_dir, source_relative)
     if os.path.isfile(source_file):
-        print(f"Copied {source_relative}")
+        print(f"{source_relative} -> {dest_file}")
         shutil.move(source_file, dest_file)
 
 # Master configs
@@ -80,12 +86,6 @@ for f in ['modoverrides.lua']:
 # Mod configs
 for f in ['dedicated_server_mods_setup.lua']:
     copy_config_file(f, join(install_dir, 'mods', f))
-
-# Run script    
-
-if not args.no_update:
-    header_print(f"Updating {dst_dir}")
-    subprocess.run(['steamcmd', '+force_install_dir', install_dir, '+login', 'anonymous', '+app_update', '343050', 'validate', '+quit'])
     
 header_print(f"Starting {server}")
 
@@ -99,8 +99,9 @@ base_run = ['./dontstarve_dedicated_server_nullrenderer', '-console', f"-cluster
 def async_run(shard: str):
     print(f"Starting shard {shard}")
     run_commands = base_run + [f"-shared {shard}"]
-    ps = subprocess.Popen(run_commands, stdout=subprocess.PIPE)
-    subprocess.check_output(['sed', f"s/^/{shard}:  /"], stdin=ps.stdout)
+    ps = subprocess.Popen(run_commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    for line in ps.stdout: 
+        print(line.decode().replace('^', f"{shard}:\t", 1), end='')
 
 async_run('Caves')
 async_run('Master')
