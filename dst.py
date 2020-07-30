@@ -114,7 +114,7 @@ def async_run(shard: str):
     run_commands = join(BASE_DIR, "test.sh")
     print(f"{run_commands}")
     ps = subprocess.Popen(
-        run_commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=install_bin, subshell=True)
+        run_commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=install_bin)
     for line in ps.stdout:
         print(f"{shard}:\t{line.decode()}", end='')
     ps.stdout.close()
