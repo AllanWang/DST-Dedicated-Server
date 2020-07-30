@@ -110,16 +110,16 @@ base_run = ['./dontstarve_dedicated_server_nullrenderer', '-console',
 
 def async_run(shard: str):
     print(f"Starting shard {shard}")
-    run_commands = base_run + [f"-shared {shard}"]
+    run_commands = base_run + [f"-shard {shard}"]
     print(f"{run_commands}")
-    # ps = subprocess.Popen(
-    #     run_commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=install_bin)
-    # for line in ps.stdout:
-    #     print(f"{shard}:\t{line.decode()}", end='')
-    # ps.stdout.close()
-    # return_code = ps.wait()
-    # if return_code:
-    #     raise subprocess.CalledProcessError(return_code, run_commands)
+    ps = subprocess.Popen(
+        run_commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=install_bin)
+    for line in ps.stdout:
+        print(f"{shard}:\t{line.decode()}", end='')
+    ps.stdout.close()
+    return_code = ps.wait()
+    if return_code:
+        raise subprocess.CalledProcessError(return_code, run_commands)
 
 
 async_run('Caves')
