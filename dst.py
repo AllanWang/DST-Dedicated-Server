@@ -111,7 +111,4 @@ async def start_shard(shard: str):
     if return_code:
         raise subprocess.CalledProcessError(return_code, ps.args)
 
-loop = asyncio.get_event_loop()
-loop.create_task(start_shard('Caves'))
-loop.create_task(start_shard('Master'))
-loop.run_forever()
+asyncio.run(asyncio.gather(start_shard('Caves'), start_shard('Master')))
