@@ -101,8 +101,10 @@ header_print(f"Starting {server}")
 
 run_commands = [join(BASE_DIR, 'scripts', 'start_server.sh'), server, 'temp', str(os.getpid())]
 
+run_commands = ['./dontstarve_dedicated_server_nullrenderer', '-console', f"-cluster {server}", f"-monitor_parent_process {os.getpid()}"]
+
 ps = subprocess.Popen(
-    run_commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=install_bin, shell=True)
+    run_commands + ["-shard Caves"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=install_bin, shell=True)
 for line in ps.stdout:
     print(line.decode(), end='')
 ps.stdout.close()
