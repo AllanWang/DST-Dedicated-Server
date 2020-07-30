@@ -15,7 +15,7 @@ project_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 source scripts/read_args.shlib
 
-server_config_dir="$project_dir/home/$server"
+server_config_dir="$project_dir/servers/$server"
 
 ########################################################################
 
