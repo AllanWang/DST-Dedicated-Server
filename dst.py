@@ -7,9 +7,6 @@ import shutil
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
-def project_dir(relative: str) -> str:
-    return join(BASE_DIR, relative)
-
 def header_print(text: str):
     print("-----------------------------------------")
     print(text, end='\n\n\n')
@@ -26,7 +23,7 @@ parser.add_argument('--no-update', dest='no_update', action='store_const',
 
 args = parser.parse_args()
 server = args.server
-server_dir = project_dir(server)
+server_dir = join(BASE_DIR, 'home', server)
 
 if not os.path.isdir(server_dir):
     raise ValueError(f"{server_dir} does not point to a valid folder")
