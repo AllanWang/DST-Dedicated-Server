@@ -49,7 +49,7 @@ if not os.path.isdir(install_bin):
 
 dst_dir = config_dir('dst_dir')
 
-cluster_dir = join(install_dir, server)
+cluster_dir = join(dst_dir, server)
 
 def check_cluster_file(relative: str):
     dir = join(cluster_dir, relative)
