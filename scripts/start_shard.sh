@@ -12,5 +12,7 @@ run_shared+=(-console)
 run_shared+=(-cluster "$cluster_name")
 run_shared+=(-monitor_parent_process "$pid")
 
+echo "${run_shared[@]}"
+
 "${run_shared[@]}" -shard Caves | sed "s/^/Caves:  /" &
 "${run_shared[@]}" -shard Master | sed "s/^/Master:  /"
