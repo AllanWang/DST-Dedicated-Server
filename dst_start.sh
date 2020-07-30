@@ -26,8 +26,12 @@ server_config_dir="$project_dir/home/$server"
 source scripts/read_config.shlib;
 
 install_dir="$(config_get install_dir)"
+install_dir="${install_dir/#\~/$HOME}"
+
 echo "$install_dir"
-dst_dir="$(realpath $(config_get dst_dir))"
+dst_dir="$(config_get dst_dir)"
+dst_dir="${dst_dir/#\~/$HOME}"
+
 server_dir="$dst_dir/$server"
 
 ########################################################################
