@@ -99,29 +99,14 @@ for f in ['dedicated_server_mods_setup.lua']:
 
 header_print(f"Starting {server}")
 
-# try:
-#     os.chdir(install_bin)
-# except OSError:
-#     raise ValueError(f"Could not change to bin directory {install_bin}")
+run_commands = [join(BASE_DIR, 'scripts', 'start_server.sh'), server, str(os.getpid())]
 
-base_run = ['./dontstarve_dedicated_server_nullrenderer', '-console',
-            f"-cluster {server}", f"-monitor_parent_process {os.getpid()}"]
+ps = subprocess.Popen(
+    run_commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=install_bin, shell=True)
+for line in ps.stdout:
+    print(line.decode(), end='')
+ps.stdout.close()
+return_code = ps.wait()
+if return_code:
+    raise subprocess.CalledProcessError(return_code, ps.args)
 
-
-def async_run(shard: str):
-    print(f"Starting shard {shard}")
-    run_commands = base_run + [f"-shard {shard}"]
-    # run_commands = join(BASE_DIR, "test.sh")
-    print(f"{run_commands}")
-    ps = subprocess.Popen(
-        run_commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=install_bin, shell=True)
-    for line in ps.stdout:
-        print(f"{shard}:\t{line.decode()}", end='')
-    ps.stdout.close()
-    return_code = ps.wait()
-    if return_code:
-        raise subprocess.CalledProcessError(return_code, ps.args)
-
-
-async_run('Caves')
-async_run('Master')
