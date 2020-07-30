@@ -121,4 +121,4 @@ async def start_shards():
         start_shard('Master')
     )
 
-asyncio.run(start_shards())
+asyncio.run(start_shard('asdf'))
