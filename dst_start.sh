@@ -44,7 +44,8 @@ echo_header "Validating $server"
 
 function check_for_file {
 	if [ ! -e "$1" ]; then
-		fail "Missing file: $1"
+		echo "Missing file: $1"
+        exit 1
 	fi
 }
 
@@ -85,7 +86,7 @@ copy_file "$server_config_dir/worldgenoverride.lua" "$server_dir/Master/worldgen
 
 echo_header "Starting $server"
 
-cd "$install_dir/bin" || fail
+cd "$install_dir/bin" || exit 1
 
 run_shared=(./dontstarve_dedicated_server_nullrenderer)
 run_shared+=(-console)
