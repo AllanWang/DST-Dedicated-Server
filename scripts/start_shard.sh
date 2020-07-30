@@ -4,12 +4,12 @@
 # We will instead pass arguments over and call it in the script
 
 cluster_name="$1"
-pid="$2"
+shard="$2"
+pid="$3"
 
 run_shared=(./dontstarve_dedicated_server_nullrenderer)
 run_shared+=(-console)
 run_shared+=(-cluster "$cluster_name")
 run_shared+=(-monitor_parent_process "$pid"
 
-"${run_shared[@]}" -shard Caves  | sed 's/^/Caves:  /' &
-"${run_shared[@]}" -shard Master | sed 's/^/Master: /'
+"${run_shared[@]}" -shard "$shard"  | sed "s/^/$shard:  /"
