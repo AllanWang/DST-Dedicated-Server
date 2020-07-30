@@ -7,9 +7,11 @@ import shutil
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
+
 def header_print(text: str):
     print("-----------------------------------------")
     print(text, end='\n\n\n')
+
 
 header_print('Verifying configs')
 
@@ -33,11 +35,13 @@ if not os.path.isdir(server_dir):
 config = configparser.ConfigParser()
 config.read('config.ini')
 
+
 def config_dir(key: str) -> str:
     value = config.get('Paths', key)
     dir = os.path.expanduser(value)
     if not os.path.isdir(dir):
-        raise ValueError(f"Invalid path provided in config ([Paths] {key} = {value})")
+        raise ValueError(
+            f"Invalid path provided in config ([Paths] {key} = {value})")
     return dir
 
 
@@ -51,29 +55,35 @@ dst_dir = config_dir('dst_dir')
 
 cluster_dir = join(dst_dir, server)
 
+
 def check_cluster_file(relative: str):
     dir = join(cluster_dir, relative)
     if not os.path.isfile(dir):
-        raise ValueError(f"Invalid cluster folder {cluster_dir} {dir}; please follow server setup (TODO link)")
+        raise ValueError(
+            f"Invalid cluster folder {cluster_dir} {dir}; please follow server setup (TODO link)")
+
 
 check_cluster_file('cluster.ini')
 check_cluster_file('cluster_token.txt')
 check_cluster_file('Master/server.ini')
 check_cluster_file('Caves/server.ini')
 
-# Run script    
+# Run script
 
 if not args.no_update:
     header_print(f"Updating {dst_dir}")
-    subprocess.run(['steamcmd', '+force_install_dir', install_dir, '+login', 'anonymous', '+app_update', '343050', 'validate', '+quit'])
+    subprocess.run(['steamcmd', '+force_install_dir', install_dir, '+login',
+                    'anonymous', '+app_update', '343050', 'validate', '+quit'])
 
 header_print(f"Setting up {server}")
+
 
 def copy_config_file(source_relative: str, dest_file: str):
     source_file = join(server_dir, source_relative)
     if os.path.isfile(source_file):
         print(f"{source_relative} -> {dest_file}")
         shutil.move(source_file, dest_file)
+
 
 # Master configs
 for f in ['modoverrides.lua', 'worldgenoverride.lua']:
@@ -86,7 +96,7 @@ for f in ['modoverrides.lua']:
 # Mod configs
 for f in ['dedicated_server_mods_setup.lua']:
     copy_config_file(f, join(install_dir, 'mods', f))
-    
+
 header_print(f"Starting {server}")
 
 try:
@@ -94,14 +104,22 @@ try:
 except OSError:
     raise ValueError(f"Could not change to bin directory {install_bin}")
 
-base_run = ['./dontstarve_dedicated_server_nullrenderer', '-console', f"-cluster {server}", f"-monitor_parent_process {os.getpid()}"]
+base_run = ['./dontstarve_dedicated_server_nullrenderer', '-console',
+            f"-cluster {server}", f"-monitor_parent_process {os.getpid()}"]
+
 
 def async_run(shard: str):
     print(f"Starting shard {shard}")
     run_commands = base_run + [f"-shared {shard}"]
-    ps = subprocess.Popen(run_commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    for line in ps.stdout: 
-        print(line.decode().replace('^', f"{shard}:\t", 1), end='')
+    ps = subprocess.Popen(
+        run_commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    for line in ps.stdout:
+        print(f"{shard}:\t{line.decode()}", end='')
+    ps.stdout.close()
+    return_code = ps.wait()
+    if return_code:
+        raise subprocess.CalledProcessError(return_code, run_commands)
+
 
 async_run('Caves')
 async_run('Master')
