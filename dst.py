@@ -114,7 +114,7 @@ def async_run(shard: str):
     ps = subprocess.Popen(
         run_commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     for line in ps.stdout:
-        print(f"{shard}:\t{line.decode()}", end='')
+        print(f"{shard}:\t{line}", end='')
     ps.stdout.close()
     return_code = ps.wait()
     if return_code:
