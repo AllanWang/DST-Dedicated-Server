@@ -4,7 +4,6 @@ import configparser
 import os
 from os.path import join
 import shutil
-import asyncio
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -100,25 +99,14 @@ for f in ['dedicated_server_mods_setup.lua']:
 
 header_print(f"Starting {server}")
 
+run_commands = [join(BASE_DIR, 'scripts', 'start_server.sh'), server, 'temp', str(os.getpid())]
 
-async def start_shard(shard: str):
-    run_commands = [join(BASE_DIR, 'scripts', 'start_shard.sh'),
-                    server, shard, str(os.getpid())]
-    ps = subprocess.Popen(run_commands, stdout=subprocess.PIPE,
-                          stderr=subprocess.PIPE, cwd=install_bin)
-    for line in ps.stdout:
-        print(line.decode(), end='')
-        await asyncio.sleep(1)
-    ps.stdout.close()
-    return_code = ps.wait()
-    if return_code:
-        raise subprocess.CalledProcessError(return_code, ps.args)
+ps = subprocess.Popen(
+    run_commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=install_bin, shell=True)
+for line in ps.stdout:
+    print(line.decode(), end='')
+ps.stdout.close()
+return_code = ps.wait()
+if return_code:
+    raise subprocess.CalledProcessError(return_code, ps.args)
 
-
-async def start_shards():
-    await asyncio.gather(
-        start_shard('Caves'),
-        start_shard('Master')
-    )
-
-asyncio.run(start_shard('asdf'))
