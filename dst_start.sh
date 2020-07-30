@@ -4,7 +4,7 @@
 
 # Init
 
-project_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+project_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 
 ########################################################################
@@ -25,8 +25,8 @@ server_config_dir="$project_dir/home/$server"
 
 source scripts/read_config.shlib;
 
-install_dir="$(config_get install_dir)"
-dst_dir="$(config_get dst_dir)"
+install_dir="$(realpath $(config_get install_dir))"
+dst_dir="$(realpath $(config_get dst_dir))"
 server_dir="$dst_dir/$server"
 
 ########################################################################
