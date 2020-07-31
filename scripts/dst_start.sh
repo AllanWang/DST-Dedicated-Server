@@ -1,19 +1,54 @@
 #!/bin/bash
 
-########################################################################
-
-# Init
-
-project_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-
-
-########################################################################
-
 # Exposed args
 # update - true if steam update should be called
 # server - server name
 
-source scripts/read_args.shlib
+# argparse; see https://stackoverflow.com/a/14203146/4407321
+
+POSITIONAL=()
+update=true
+
+function print_help {
+    echo "usage: dst start [--no-update] [--help] server"
+    echo "--no-update  disable steam update"
+    echo "--help       show this page"
+    echo "server       name of the server"
+}
+
+while [[ $# -gt 0 ]]; do
+key="$1"
+
+case $key in
+    -h|--help)
+    echo "Start DST server"
+    print_help
+    exit 0
+    ;;
+    --no-update)
+    update=false
+    shift
+    ;;
+    -*)    # unknown option
+    echo "Invalid option $1"
+    print_help
+    exit 1
+    ;;
+    *)
+    POSITIONAL+=("$1") 
+    shift
+    ;;
+esac
+done
+set -- "${POSITIONAL[@]}" # restore positional parameters
+
+if [[ $# -ne 1 ]]; then
+    echo "Missing server name"
+    print_help
+    exit 1
+fi
+
+server="$1"
 
 server_config_dir="$project_dir/servers/$server"
 
@@ -23,10 +58,10 @@ server_config_dir="$project_dir/servers/$server"
 # Overrides at config.cfg
 # Defaults at config.cfg.defaults
 
-source scripts/read_config.shlib;
+source scripts/read_config.sh;
 
 install_dir="$(config_get install_dir)"
-install_dir="${install_dir/#\~/$HOME}"
+install_dir="$(abs_path "$install_dir")"
 
 echo "$install_dir"
 dst_dir="$(config_get dst_dir)"
