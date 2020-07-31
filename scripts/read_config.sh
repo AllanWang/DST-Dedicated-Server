@@ -1,3 +1,4 @@
+#!/bin/bash
 # See https://unix.stackexchange.com/a/331965
 
 config_read_file() {
