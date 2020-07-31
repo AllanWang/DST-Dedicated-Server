@@ -6,6 +6,8 @@
 
 project_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
+cd "$project_dir"
+
 function abs_path {
     path="$1"
     path="${path/#\~/$HOME}"
