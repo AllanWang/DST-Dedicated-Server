@@ -37,3 +37,5 @@ Call `dst start [server_name]`
 
 * [Server Requirements](https://support.klei.com/hc/en-us/articles/360029556072-Don-t-Starve-Together-System-Requirements)
 * [Staff Guide](https://forums.kleientertainment.com/forums/topic/64441-dedicated-server-quick-setup-guide-linux/)
+* This guide is based around Google Cloud, where I'm using a compute engine + Debian
+* If you wish to run a server 24/7 and don't require full access to your server, you can consider a gaming server. Some servers will have DST pre configured, but note that you may require two instances to support both the main world + caves
