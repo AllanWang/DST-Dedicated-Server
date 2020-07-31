@@ -58,10 +58,6 @@ source scripts/read_config.sh;
 dst_dir="$(config_get dst_dir)"
 dst_dir="$(abs_path "$dst_dir")"
 
-echo "$dst_dir"
-
-exit 0
-
 ########################################################################
 
 echo "Validating $(basename -- "$server_zip")"
