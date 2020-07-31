@@ -5,15 +5,13 @@
 
 # argparse; see https://stackoverflow.com/a/14203146/4407321
 
-echo_header "DST Server Setup"
-
 POSITIONAL=()
 update=true
 
 function print_help {
     echo "usage: dst setup server_zip"
     echo "--help           show this page"
-    echo "server_zip       path to server zip"
+    echo "server_zip       path to server zip (create from https://accounts.klei.com/account/game/servers?game=DontStarveTogether)"
 }
 
 while [[ $# -gt 0 ]]; do
@@ -59,6 +57,8 @@ dst_dir="$(config_get dst_dir)"
 dst_dir="$(abs_path "$dst_dir")"
 
 ########################################################################
+
+echo_header "DST Server Setup"
 
 echo "Validating $(basename -- "$server_zip")"
 
