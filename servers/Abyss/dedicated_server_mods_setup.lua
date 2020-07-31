@@ -28,8 +28,8 @@ ServerModSetup("374550642")
 
 -- Auto Door
 -- https://steamcommunity.com/sharedfiles/filedetails/?id=2074508776
-
 ServerModSetup("2074508776")
+
 -- Extra Equip Slots
 -- https://steamcommunity.com/sharedfiles/filedetails/?id=1818688368
 ServerModSetup("1818688368")
