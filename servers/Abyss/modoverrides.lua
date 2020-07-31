@@ -19,5 +19,11 @@ return {
     ["workshop-366676924"] = {enabled = true},
     -- Increased Stack Size
     -- https://steamcommunity.com/sharedfiles/filedetails/?id=374550642
-    ["workshop-374550642"] = {enabled = true}
+    ["workshop-374550642"] = {enabled = true},
+    -- Auto Door
+    -- https://steamcommunity.com/sharedfiles/filedetails/?id=2074508776
+    ["workshop-2074508776"] = {enabled = true},
+    -- Extra Equip Slots
+    -- https://steamcommunity.com/sharedfiles/filedetails/?id=1818688368
+    ["workshop-1818688368"] = {enabled = true}
 }
