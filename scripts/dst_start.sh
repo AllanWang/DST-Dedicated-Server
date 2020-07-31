@@ -98,6 +98,10 @@ fi
 
 ########################################################################
 
+# Copy override files
+# Note that if steam is updated, these files will get overwritten
+# This is why we call this after updating
+
 echo_header "Updating configs"
 
 function copy_file {

@@ -1,17 +1,39 @@
 # DST Dedicated Server
 
-Configs
+Helper scripts for setting up and managing a DST server
 
-# Setup
+## Setup
 
+Follow the first two steps at
 https://forums.kleientertainment.com/forums/topic/64441-dedicated-server-quick-setup-guide-linux/
 
 For Debian, see https://unix.stackexchange.com/a/390076 for `steamcmd` installation
 
+---
+
+Update config files by creating `config.cfg`. 
+You can use `config.cfg.defaults` for reference, or skip this step if defaults are fine.
+
+---
+
+All commands are called from `dst.sh`. You may optionally add an alias so you can call this from any location.
+For the rest the doc, I will refer to this script as `dst`.
+
+All steps of the script are documented via `-h|--help|help`
+
+## Create Server
+
 Create server via https://accounts.klei.com/account/game/servers?game=DontStarveTogether
 
-# Server Start
+Call `dst setup [server_zip]`, where `server_zip` is the path to the zip file.
+This will move the zip to the appropriate folder (named after the configuration, not the zip name), along with a template for server overrides.
+By default, the server will be vanilla DST. To add mods or change world generation, look at the newly created folder under `servers`
 
-`./dst_start.sh [server name]`
+## Server Start
 
-Run `./dst_start.sh -h` for details
+Call `dst start [server_name]`
+
+## Misc Info
+
+* [Server Requirements](https://support.klei.com/hc/en-us/articles/360029556072-Don-t-Starve-Together-System-Requirements)
+* [Staff Guide](https://forums.kleientertainment.com/forums/topic/64441-dedicated-server-quick-setup-guide-linux/)
