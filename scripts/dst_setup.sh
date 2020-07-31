@@ -66,7 +66,7 @@ echo "Validating $(basename -- "$server_zip")"
 # - MyDediServer root folder
 # - cluster.ini file
 
-if [[ "$(zipinfo -1 "$server_zip")" != "MyDediServer/"*"cluster.ini"* ]];
+if [[ "$(zipinfo -1 "$server_zip")" != "MyDediServer/"*"cluster.ini"* ]]; then
     echo "Zip format mismatch; is this zip file a DST server?"
     exit 1
 fi
