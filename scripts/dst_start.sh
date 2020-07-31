@@ -63,7 +63,6 @@ source scripts/read_config.sh;
 install_dir="$(config_get install_dir)"
 install_dir="$(abs_path "$install_dir")"
 
-echo "$install_dir"
 dst_dir="$(config_get dst_dir)"
 dst_dir="${dst_dir/#\~/$HOME}"
 
