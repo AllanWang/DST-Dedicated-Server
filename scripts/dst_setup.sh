@@ -82,7 +82,7 @@ if [ -d "$dst_temp_dir/MyDediServer" ]; then
     exit 1
 fi
 
-unzip "$server_zip" -d "$dst_temp_dir"
+unzip -qq "$server_zip" -d "$dst_temp_dir"
 
 # Extract server name from ini file
 # Server name starts with `cluster_name =`
@@ -118,7 +118,7 @@ else
     echo "Created server configs at $server_config_dir"
 fi
 
-echo "Finished setup! Update the configs, or call `dst start $server_name` to start a vanilla server"
+echo "Finished setup! Update the configs, or call \`dst start $server_name\` to start a vanilla server"
 
 
 
