@@ -25,5 +25,12 @@ return {
     ["workshop-2074508776"] = {enabled = true},
     -- Extra Equip Slots
     -- https://steamcommunity.com/sharedfiles/filedetails/?id=1818688368
-    ["workshop-1818688368"] = {enabled = true}
+    ["workshop-1818688368"] = {enabled = true},
+    -- Your Skeleton Respawn
+    -- https://steamcommunity.com/sharedfiles/filedetails/?id=1271089343
+    ["workshop-1271089343"] = {enabled = true},
+
+    -- Tools Are Fuels
+    -- https://steamcommunity.com/sharedfiles/filedetails/?id=599498678
+    ["workshop-599498678"] = {enabled = true}
 }
