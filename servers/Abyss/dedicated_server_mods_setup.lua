@@ -41,3 +41,7 @@ ServerModSetup("1271089343")
 -- Tools Are Fuels
 -- https://steamcommunity.com/sharedfiles/filedetails/?id=599498678
 ServerModSetup("599498678")
+
+-- Better Ice Flingo
+-- https://steamcommunity.com/sharedfiles/filedetails/?id=866623002
+ServerModSetup("866623002")

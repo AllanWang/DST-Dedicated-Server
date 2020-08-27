@@ -32,5 +32,9 @@ return {
 
     -- Tools Are Fuels
     -- https://steamcommunity.com/sharedfiles/filedetails/?id=599498678
-    ["workshop-599498678"] = {enabled = true}
+    ["workshop-599498678"] = {enabled = true},
+
+    -- Better Ice Flingo
+    -- https://steamcommunity.com/sharedfiles/filedetails/?id=866623002
+    ["workshop-866623002"] = {enabled = true}
 }
