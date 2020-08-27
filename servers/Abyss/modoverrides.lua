@@ -36,5 +36,27 @@ return {
 
     -- Better Ice Flingo
     -- https://steamcommunity.com/sharedfiles/filedetails/?id=866623002
-    ["workshop-866623002"] = {enabled = true}
+    ["workshop-866623002"] = {
+        enabled = true,
+        configuration_options = {
+            ["campfire"] = true,
+            ["firepit"] = true,
+            ["coldfire"] = true,
+            ["coldfirepit"] = true,
+            ["nightlight"] = true,
+            ["pigtorch"] = true,
+            ["obsidianfirepit"] = true,
+            ["chiminea"] = true,
+            ["sea_chiminea"] = true,
+            ["deluxe_firepit"] = true,
+            ["endo_firepit"] = true,
+            ["heat_star"] = true,
+            ["ice_star"] = true,
+            ["alwaysontikitorch"] = true,
+            ["firepit_obsidian"] = true,
+            ["tungsten_firepit"] = true,
+            ["musha_oven"] = true,
+            ["maxwelllight_p"] = true
+        }
+    }
 }
